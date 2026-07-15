@@ -1,0 +1,1879 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#eceff5" />
+  <meta name="description" content="Dashboard KPI Program Kesihatan Pergigian Kelantan" />
+  <title>Dashboard KPI Pergigian Kelantan</title>
+
+  <style>
+:root {
+  --bg: #eef1f6;
+  --bg-2: #f7f8fb;
+  --text: #21324b;
+  --muted: #7c8698;
+  --line: rgba(255,255,255,0.42);
+  --glass: linear-gradient(145deg, rgba(255,255,255,0.44), rgba(255,255,255,0.20));
+  --glass-strong: linear-gradient(145deg, rgba(255,255,255,0.62), rgba(255,255,255,0.22));
+  --glass-border: rgba(255,255,255,0.55);
+  --glass-shadow: 0 24px 50px rgba(98,111,140,0.14), 0 10px 22px rgba(98,111,140,0.08), inset 0 1px 0 rgba(255,255,255,0.72);
+  --pink: #ec7da4;
+  --amber: #efbe66;
+  --green: #57c8ae;
+  --blue: #7bb6ff;
+  --navy: #233b5f;
+  --coral: #f58d84;
+  --purple: #9a91ec;
+  --soft-pink: rgba(236,125,164,0.16);
+  --soft-amber: rgba(239,190,102,0.16);
+  --soft-green: rgba(87,200,174,0.16);
+  --soft-blue: rgba(123,182,255,0.16);
+  --soft-coral: rgba(245,141,132,0.16);
+  --radius-xl: 34px;
+  --radius-lg: 28px;
+  --radius-md: 22px;
+  --radius-sm: 16px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(236,125,164,0.16), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(123,182,255,0.18), transparent 24%),
+    radial-gradient(circle at 18% 85%, rgba(87,200,174,0.14), transparent 20%),
+    linear-gradient(180deg, #f2f4f8 0%, #eef1f6 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.45;
+  overflow-x: hidden;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  z-index: -2;
+  pointer-events: none;
+  filter: blur(18px);
+}
+body::before {
+  top: 8%;
+  right: -100px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.75), rgba(255,255,255,0.1) 60%, transparent 70%);
+}
+body::after {
+  bottom: -90px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.68), rgba(255,255,255,0.06) 62%, transparent 72%);
+}
+button, input, select { font: inherit; }
+button, select { cursor: pointer; }
+a { color: inherit; }
+h1, h2, h3, p { margin-top: 0; }
+.app-shell {
+  width: min(1440px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 32px 0 28px;
+}
+.glass,
+.glass-panel,
+.data-status,
+.icon-button,
+.metric-row,
+.kpi-card,
+.filter-control,
+.mini-stat,
+.result-count,
+.soft-badge,
+.orb,
+.error-banner,
+.upload-button {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+}
+.glass-panel::before,
+.data-status::before,
+.icon-button::before,
+.metric-row::before,
+.kpi-card::before,
+.filter-control::before,
+.mini-stat::before,
+.orb::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06) 42%, rgba(255,255,255,0.04));
+  pointer-events: none;
+}
+.ambient {
+  position: fixed;
+  z-index: -1;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.ambient-one {
+  top: -180px;
+  right: -150px;
+  background: radial-gradient(circle, rgba(236,125,164,0.16), transparent 68%);
+}
+.ambient-two {
+  bottom: -210px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(87,200,174,0.16), transparent 68%);
+}
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.brand-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.brand-dots {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+}
+.brand-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(60,72,97,0.14);
+}
+.brand-dots span:nth-child(1) { background: var(--pink); }
+.brand-dots span:nth-child(2) { background: var(--amber); }
+.brand-dots span:nth-child(3) { background: var(--green); }
+.eyebrow, .panel-kicker {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+h1 {
+  margin-bottom: 6px;
+  font-size: clamp(1.95rem, 3vw, 3.15rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: var(--navy);
+}
+.title-emphasis { font-weight: 900; }
+.subtitle {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  max-width: 62ch;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.orb {
+  display: flex;
+  width: 118px;
+  height: 118px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--glass-strong);
+  isolation: isolate;
+}
+.orb::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.12));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+}
+.orb-label, .orb-subtitle {
+  position: relative;
+  z-index: 1;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.orb strong {
+  position: relative;
+  z-index: 1;
+  margin: 4px 0 2px;
+  font-size: 2.15rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--navy);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.data-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.status-dot {
+  position: relative;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 5px rgba(239,190,102,0.14);
+}
+.data-status[data-state="success"] .status-dot {
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(87,200,174,0.14);
+}
+.data-status[data-state="error"] .status-dot {
+  background: var(--coral);
+  box-shadow: 0 0 0 5px rgba(245,141,132,0.14);
+}
+.icon-button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--navy);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.icon-button:hover { transform: translateY(-2px); }
+.icon-button:disabled { opacity: 0.55; cursor: wait; }
+.icon-button svg { position: relative; z-index: 1; width: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-button.is-spinning svg { animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.glass-panel {
+  min-width: 0;
+  padding: 22px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  isolation: isolate;
+}
+.glass-panel.wide { grid-column: 1 / -1; }
+.panel-heading, .section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.panel h2, .section-heading h2, .glass-panel h2 {
+  margin-bottom: 0;
+  font-size: 1.16rem;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.soft-badge, .result-count {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+.filter-panel { padding: 18px; }
+.control-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.4fr) repeat(3, minmax(160px, 0.72fr));
+  gap: 14px;
+}
+.filter-group label {
+  display: block;
+  margin: 0 0 7px 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.filter-control {
+  border-radius: 18px;
+  overflow: hidden;
+}
+.input-shell { position: relative; }
+.input-shell svg {
+  position: absolute;
+  z-index: 1;
+  left: 14px;
+  top: 50%;
+  width: 18px;
+  transform: translateY(-50%);
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+input, select {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 48px;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  background: rgba(255,255,255,0.08);
+  transition: background 160ms ease, box-shadow 160ms ease;
+}
+input { padding: 0 14px 0 43px; }
+select { padding: 0 36px 0 14px; }
+input:focus, select:focus {
+  background: rgba(255,255,255,0.22);
+  box-shadow: inset 0 0 0 1px rgba(123,182,255,0.55), 0 0 0 4px rgba(123,182,255,0.12);
+}
+.panel-overview .overview-layout {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 18px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.mini-stat {
+  border-radius: 24px;
+  padding: 16px;
+  min-height: 126px;
+  overflow: hidden;
+}
+.mini-stat.primary { background: linear-gradient(145deg, rgba(255,255,255,0.46), rgba(115,171,255,0.18)); }
+.mini-stat.success { background: linear-gradient(145deg, rgba(255,255,255,0.46), rgba(87,200,174,0.18)); }
+.mini-stat.warning { background: linear-gradient(145deg, rgba(255,255,255,0.46), rgba(245,141,132,0.16)); }
+.mini-stat.rate { background: linear-gradient(145deg, rgba(255,255,255,0.46), rgba(239,190,102,0.18)); }
+.mini-stat .stat-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.mini-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+}
+.mini-icon svg { width: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mini-progress {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 850;
+  color: var(--navy);
+  background: rgba(255,255,255,0.44);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+}
+.stat-label, .stat-caption { display: block; position: relative; z-index: 1; }
+.stat-label { color: var(--muted); font-size: 0.76rem; font-weight: 800; }
+.mini-stat strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 4px 0 3px;
+  font-size: clamp(1.65rem, 2vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--navy);
+}
+.stat-caption { color: var(--muted); font-size: 0.7rem; }
+.overview-showcase {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 14px;
+}
+.showcase-card, .showcase-grid .show-tile, .showcase-foot {
+  position: relative;
+  z-index: 1;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.42);
+  background: rgba(255,255,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.68);
+}
+.showcase-card {
+  padding: 16px;
+}
+.showcase-kicker {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.chart-illusion {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 14px;
+  align-items: end;
+}
+.lines-card {
+  padding: 10px 8px 6px;
+}
+.line-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.line-row span:first-child { width: 24px; font-size: 0.62rem; color: var(--muted); }
+.line-row b { display: block; height: 6px; border-radius: 999px; }
+.line-row.one b { width: 84%; background: linear-gradient(90deg, var(--pink), rgba(236,125,164,0.25)); }
+.line-row.two b { width: 68%; background: linear-gradient(90deg, var(--green), rgba(87,200,174,0.25)); }
+.line-row.three b { width: 56%; background: linear-gradient(90deg, var(--amber), rgba(239,190,102,0.25)); }
+.bar-stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  min-height: 118px;
+  padding-bottom: 8px;
+}
+.bar-stage span {
+  display: block;
+  width: 18px;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+}
+.bar-stage span:nth-child(1) { height: 58px; background: linear-gradient(180deg, rgba(236,125,164,0.95), rgba(236,125,164,0.35)); }
+.bar-stage span:nth-child(2) { height: 92px; background: linear-gradient(180deg, rgba(87,200,174,0.95), rgba(87,200,174,0.35)); }
+.bar-stage span:nth-child(3) { height: 72px; background: linear-gradient(180deg, rgba(239,190,102,0.95), rgba(239,190,102,0.35)); }
+.bar-stage span:nth-child(4) { height: 102px; background: linear-gradient(180deg, rgba(123,182,255,0.95), rgba(123,182,255,0.35)); }
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.show-tile {
+  padding: 14px;
+  min-height: 96px;
+}
+.show-tile .tile-value {
+  display: block;
+  margin-top: 14px;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--navy);
+}
+.show-tile .tile-label { color: var(--muted); font-size: 0.72rem; font-weight: 800; }
+.showcase-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+.showcase-foot strong { font-size: 1rem; color: var(--navy); }
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.donut-layout {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.88fr) minmax(180px, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+.chart-box { position: relative; min-width: 0; }
+.chart-box-donut { height: 280px; }
+.chart-box-bar { height: 320px; }
+.chart-box-wide { height: 360px; }
+.metric-list { display: grid; gap: 10px; }
+.metric-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+}
+.metric-dot { position: relative; z-index: 1; width: 10px; height: 10px; border-radius: 50%; }
+.metric-copy, .metric-value { position: relative; z-index: 1; }
+.metric-copy strong, .metric-copy span { display: block; }
+.metric-copy strong { font-size: 0.82rem; color: var(--navy); }
+.metric-copy span { color: var(--muted); font-size: 0.68rem; }
+.metric-value { font-size: 1.1rem; font-weight: 850; color: var(--navy); }
+.kpi-section { margin-top: 6px; }
+.section-heading { margin-bottom: 14px; }
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.kpi-card {
+  display: flex;
+  min-width: 0;
+  min-height: 288px;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 26px;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.kpi-card:hover { transform: translateY(-3px); box-shadow: 0 28px 58px rgba(98,111,140,0.18), inset 0 1px 0 rgba(255,255,255,0.72); }
+.kpi-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--status-color, var(--blue));
+}
+.kpi-card-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kpi-number {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 14px;
+  color: var(--status-color, var(--blue));
+  background: color-mix(in srgb, var(--status-soft, rgba(255,255,255,0.25)) 86%, white 14%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+  font-weight: 900;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--status-color, var(--blue));
+  background: color-mix(in srgb, var(--status-soft, rgba(255,255,255,0.25)) 86%, white 14%);
+  font-size: 0.68rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.status-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.kpi-kra {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.kpi-title {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 18px;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.kpi-score-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: auto;
+}
+.score-label, .target-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.score-value {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--navy);
+}
+.target-box { text-align: right; }
+.target-value { display: block; margin-top: 2px; font-size: 0.93rem; font-weight: 850; color: var(--navy); }
+.progress-track {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 9px;
+  margin: 14px 0 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.42);
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--status-color, var(--blue)), color-mix(in srgb, var(--status-color, var(--blue)) 56%, white 44%));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+  transition: width 500ms ease;
+}
+.progress-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.69rem;
+}
+.kpi-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(255,255,255,0.35);
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+.kpi-meta span:last-child { text-align: right; }
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 55px 24px;
+  border: 1px dashed rgba(124,134,152,0.28);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--muted);
+  background: rgba(255,255,255,0.24);
+}
+.empty-icon { font-size: 2.5rem; }
+.empty-state h3 { margin: 8px 0 4px; color: var(--navy); }
+.empty-state p { margin: 0; }
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 4px 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.error-banner {
+  position: fixed;
+  z-index: 20;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  border-radius: 20px;
+}
+.error-banner p { margin: 2px 0 0; color: var(--muted); font-size: 0.78rem; }
+.upload-button {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #ef8f85, #f06d68);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  color: transparent !important;
+  background: rgba(255,255,255,0.26) !important;
+  border-radius: 8px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+@media (max-width: 1180px) {
+  .control-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .filter-search { grid-column: 1 / -1; }
+  .panel-overview .overview-layout { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  .dashboard-grid, .analytics-grid { grid-template-columns: 1fr; }
+  .glass-panel.wide { grid-column: auto; }
+  .chart-box-wide { height: 400px; }
+}
+@media (max-width: 780px) {
+  .app-shell { width: min(100% - 24px, 1440px); padding-top: 24px; }
+  .topbar { flex-direction: column; }
+  .header-right { width: 100%; justify-content: space-between; }
+  .orb { width: 100px; height: 100px; }
+  .data-status { display: none; }
+  .control-panel { grid-template-columns: 1fr; }
+  .filter-search { grid-column: auto; }
+}
+@media (max-width: 620px) {
+  .app-shell { width: min(100% - 18px, 1440px); }
+  h1 { font-size: 2.05rem; }
+  .subtitle { font-size: 0.84rem; max-width: 34ch; }
+  .brand-block { gap: 12px; }
+  .brand-dots { gap: 5px; padding-top: 9px; }
+  .brand-dots span { width: 9px; height: 9px; border-radius: 3px; }
+  .glass-panel { padding: 18px; border-radius: 26px; }
+  .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .mini-stat { min-height: 118px; padding: 14px; border-radius: 20px; }
+  .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .donut-layout { grid-template-columns: 1fr; }
+  .chart-box-donut { height: 235px; }
+  .chart-box-bar { height: 320px; }
+  .chart-box-wide { height: 440px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-card { min-height: 272px; }
+  footer { flex-direction: column; gap: 5px; }
+  .error-banner { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 420px) {
+  .summary-grid, .showcase-grid { grid-template-columns: 1fr; }
+  .header-right { align-items: flex-start; }
+  .orb { width: 90px; height: 90px; }
+  .orb strong { font-size: 1.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <p class="eyebrow">PROGRAM KESIHATAN PERGIGIAN</p>
+          <h1>Dashboard <span class="title-emphasis">KPI Kelantan</span></h1>
+          <p class="subtitle">Reka bentuk berinspirasikan contoh yang diberi, dengan gaya liquid glass ala iOS untuk paparan desktop dan mudah alih.</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="header-actions">
+          <div id="dataStatus" class="data-status" data-state="loading">
+            <span class="status-dot"></span>
+            <span id="dataStatusText">Memuatkan data…</span>
+          </div>
+          <button id="refreshButton" class="icon-button" type="button" title="Muat semula data" aria-label="Muat semula data">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8.1 8.1 0 0 0-15.5-3M4 4v4h4M4 13a8.1 8.1 0 0 0 15.5 3M20 20v-4h-4" />
+            </svg>
+          </button>
+        </div>
+        <div class="orb" aria-label="Jumlah KPI">
+          <span class="orb-label">Jumlah</span>
+          <strong id="totalKpiOrb">—</strong>
+          <span class="orb-subtitle">KPI</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <section class="glass-panel wide filter-panel" aria-label="Penapis dashboard">
+        <div class="control-panel">
+          <div class="filter-group filter-search">
+            <label for="searchInput">Carian KPI</label>
+            <div class="filter-control input-shell">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+              <input id="searchInput" type="search" placeholder="Cari indikator, KRA atau nombor KPI…" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="kraFilter">KRA</label>
+            <div class="filter-control"><select id="kraFilter"><option value="all">Semua KRA</option></select></div>
+          </div>
+
+          <div class="filter-group">
+            <label for="statusFilter">Status</label>
+            <div class="filter-control">
+              <select id="statusFilter">
+                <option value="all">Semua status</option>
+                <option value="achieved">Mencapai sasaran</option>
+                <option value="below">Perlu tindakan</option>
+                <option value="review">Perlu semakan</option>
+                <option value="no-data">Tiada data</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="districtFilter">Paparan lokasi</label>
+            <div class="filter-control"><select id="districtFilter"><option value="NEGERI">Negeri Kelantan</option></select></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-panel panel-overview">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Overview</p>
+            <h2>Ringkasan prestasi KPI</h2>
+          </div>
+          <span id="selectedLocationBadge" class="soft-badge">Negeri Kelantan</span>
+        </div>
+
+        <div class="overview-layout">
+          <div class="summary-grid" aria-label="Ringkasan KPI">
+            <article class="mini-stat primary">
+              <div class="stat-top">
+                <div class="mini-icon" style="color:var(--blue)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2" /></svg>
+                </div>
+                <span class="mini-progress">KPI</span>
+              </div>
+              <span class="stat-label">Jumlah KPI</span>
+              <strong id="totalKpi">—</strong>
+              <span id="totalKpiCaption" class="stat-caption">dalam set data</span>
+            </article>
+
+            <article class="mini-stat success">
+              <div class="stat-top">
+                <div class="mini-icon" style="color:var(--green)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
+                </div>
+                <span class="mini-progress">✓</span>
+              </div>
+              <span class="stat-label">Mencapai sasaran</span>
+              <strong id="achievedKpi">—</strong>
+              <span id="achievedCaption" class="stat-caption">daripada KPI boleh dinilai</span>
+            </article>
+
+            <article class="mini-stat warning">
+              <div class="stat-top">
+                <div class="mini-icon" style="color:var(--coral)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5m0 4h.01M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z" /></svg>
+                </div>
+                <span class="mini-progress">!</span>
+              </div>
+              <span class="stat-label">Perlu tindakan</span>
+              <strong id="belowKpi">—</strong>
+              <span class="stat-caption">di bawah sasaran</span>
+            </article>
+
+            <article class="mini-stat rate">
+              <div class="stat-top">
+                <div class="mini-icon" style="color:var(--amber)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M7 15l4-4 3 3 5-7" /></svg>
+                </div>
+                <span class="mini-progress">%</span>
+              </div>
+              <span class="stat-label">Kadar pencapaian</span>
+              <strong id="achievementRate">—</strong>
+              <span class="stat-caption">KPI tercapai / boleh dinilai</span>
+            </article>
+          </div>
+
+          <div class="overview-showcase" aria-hidden="true">
+            <div class="showcase-card">
+              <p class="showcase-kicker">Visual summary</p>
+              <div class="chart-illusion">
+                <div class="lines-card">
+                  <div class="line-row one"><span>01</span><b></b></div>
+                  <div class="line-row two"><span>02</span><b></b></div>
+                  <div class="line-row three"><span>03</span><b></b></div>
+                </div>
+                <div class="bar-stage"><span></span><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <div class="showcase-grid">
+              <div class="show-tile">
+                <span class="tile-label">Paparan</span>
+                <span class="tile-value">Desktop</span>
+              </div>
+              <div class="show-tile">
+                <span class="tile-label">Responsive</span>
+                <span class="tile-value">Mobile</span>
+              </div>
+            </div>
+            <div class="showcase-foot">
+              <div>
+                <p class="showcase-kicker" style="margin-bottom:2px">Tema</p>
+                <strong>Liquid Glass Dashboard</strong>
+              </div>
+              <span class="soft-badge">iOS inspired</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-panel panel-performance">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">KPI Dashboard</p>
+            <h2>Status pencapaian KPI</h2>
+          </div>
+          <span class="soft-badge">Analisis status</span>
+        </div>
+        <div class="donut-layout">
+          <div class="chart-box chart-box-donut">
+            <canvas id="statusChart" aria-label="Carta status pencapaian KPI"></canvas>
+          </div>
+          <div id="statusLegend" class="metric-list"></div>
+        </div>
+      </section>
+
+      <section class="glass-panel panel-rank">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Data analysis</p>
+            <h2>Kadar KPI mencapai sasaran mengikut daerah</h2>
+          </div>
+          <span class="soft-badge">Daerah</span>
+        </div>
+        <div class="chart-box chart-box-bar">
+          <canvas id="districtChart" aria-label="Carta kadar pencapaian mengikut daerah"></canvas>
+        </div>
+      </section>
+
+      <section class="glass-panel wide panel-wide">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">KPI Dashboard Sales</p>
+            <h2>Pencapaian KPI terpilih berbanding sasaran</h2>
+          </div>
+          <span class="soft-badge">Indeks = 100 pada sasaran</span>
+        </div>
+        <div class="chart-box chart-box-wide">
+          <canvas id="comparisonChart" aria-label="Carta indeks pencapaian KPI berbanding sasaran"></canvas>
+        </div>
+      </section>
+
+      <section class="glass-panel wide kpi-section">
+        <div class="section-heading">
+          <div>
+            <p class="panel-kicker">Butiran indikator</p>
+            <h2>Senarai KPI</h2>
+          </div>
+          <span id="resultCount" class="result-count">0 KPI</span>
+        </div>
+        <div id="kpiGrid" class="kpi-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Sumber: Google Sheet PKP KKM Kelantan</span>
+      <span id="lastUpdated">Belum dikemas kini</span>
+    </footer>
+  </div>
+
+  <div id="errorBanner" class="error-banner" hidden>
+    <div>
+      <strong>Data Google Sheet tidak dapat dimuatkan.</strong>
+      <p id="errorMessage">Semak sambungan internet atau gunakan fail CSV.</p>
+    </div>
+    <label class="upload-button">
+      Pilih CSV
+      <input id="csvUpload" type="file" accept=".csv,text/csv" hidden />
+    </label>
+  </div>
+
+  <template id="emptyStateTemplate">
+    <div class="empty-state">
+      <div class="empty-icon">⌕</div>
+      <h3>Tiada KPI sepadan</h3>
+      <p>Ubah carian atau penapis untuk melihat data lain.</p>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script>
+"use strict";
+
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTxpSnQXhnIKgbHupXq-BHj2aIjx3QzbRDRzLlNn5UjKHKkHHEm_KWGFyVpwxDGzg/pub?gid=601081092&single=true&output=csv";
+const CACHE_KEY = "pergigian-kelantan-kpi-cache-v1";
+const SHEET_GVIZ_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTxpSnQXhnIKgbHupXq-BHj2aIjx3QzbRDRzLlNn5UjKHKkHHEm_KWGFyVpwxDGzg/gviz/tq?gid=601081092&headers=0&tqx=out:json;responseHandler:__kelantanGvizCallback";
+
+const DISTRICT_NAMES = {
+  KB: "Kota Bharu",
+  PM: "Pasir Mas",
+  TP: "Tumpat",
+  TM: "Tanah Merah",
+  JL: "Jeli",
+  PP: "Pasir Puteh",
+  BC: "Bachok",
+  MC: "Machang",
+  KK: "Kuala Krai",
+  GM: "Gua Musang",
+  NEGERI: "Negeri Kelantan"
+};
+
+const STATUS_CONFIG = {
+  achieved: { label: "Mencapai sasaran", color: "#36af96", soft: "#e5f7f2" },
+  below: { label: "Perlu tindakan", color: "#ef786f", soft: "#ffebe8" },
+  review: { label: "Perlu semakan", color: "#efad45", soft: "#fff1dc" },
+  "no-data": { label: "Tiada data", color: "#9aa9b9", soft: "#edf1f5" }
+};
+
+const state = {
+  kpis: [],
+  filtered: [],
+  districtCodes: [],
+  selectedLocation: "NEGERI",
+  charts: { status: null, district: null, comparison: null },
+  lastLoadedAt: null
+};
+
+const $ = (selector) => document.querySelector(selector);
+const elements = {};
+
+window.addEventListener("DOMContentLoaded", () => {
+  cacheElements();
+  bindEvents();
+  configureChartDefaults();
+  loadDashboardData();
+});
+
+function cacheElements() {
+  Object.assign(elements, {
+    totalKpi: $("#totalKpi"),
+    totalKpiOrb: $("#totalKpiOrb"),
+    totalKpiCaption: $("#totalKpiCaption"),
+    achievedKpi: $("#achievedKpi"),
+    achievedCaption: $("#achievedCaption"),
+    belowKpi: $("#belowKpi"),
+    achievementRate: $("#achievementRate"),
+    searchInput: $("#searchInput"),
+    kraFilter: $("#kraFilter"),
+    statusFilter: $("#statusFilter"),
+    districtFilter: $("#districtFilter"),
+    refreshButton: $("#refreshButton"),
+    dataStatus: $("#dataStatus"),
+    dataStatusText: $("#dataStatusText"),
+    selectedLocationBadge: $("#selectedLocationBadge"),
+    statusLegend: $("#statusLegend"),
+    kpiGrid: $("#kpiGrid"),
+    resultCount: $("#resultCount"),
+    lastUpdated: $("#lastUpdated"),
+    errorBanner: $("#errorBanner"),
+    errorMessage: $("#errorMessage"),
+    csvUpload: $("#csvUpload"),
+    emptyStateTemplate: $("#emptyStateTemplate")
+  });
+}
+
+function bindEvents() {
+  elements.searchInput.addEventListener("input", applyFilters);
+  elements.kraFilter.addEventListener("change", applyFilters);
+  elements.statusFilter.addEventListener("change", applyFilters);
+  elements.districtFilter.addEventListener("change", () => {
+    state.selectedLocation = elements.districtFilter.value;
+    applyFilters();
+  });
+  elements.refreshButton.addEventListener("click", () => loadDashboardData({ force: true }));
+  elements.csvUpload.addEventListener("change", handleCsvUpload);
+}
+
+function configureChartDefaults() {
+  if (!window.Chart) return;
+  Chart.defaults.font.family = 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  Chart.defaults.color = "#7b8498";
+  Chart.defaults.borderColor = "rgba(108, 123, 153, 0.14)";
+}
+
+function setLoading(isLoading) {
+  elements.refreshButton.disabled = isLoading;
+  elements.refreshButton.classList.toggle("is-spinning", isLoading);
+  if (isLoading) setDataStatus("loading", "Memuatkan data…");
+}
+
+function setDataStatus(status, text) {
+  elements.dataStatus.dataset.state = status;
+  elements.dataStatusText.textContent = text;
+}
+
+function loadDashboardData({ force = false } = {}) {
+  setLoading(true);
+  elements.errorBanner.hidden = true;
+
+  if (!window.Papa) {
+    showLoadError("Pustaka Papa Parse gagal dimuatkan. Semak sambungan internet.");
+    return;
+  }
+
+  Papa.parse(SHEET_CSV_URL, {
+    download: true,
+    skipEmptyLines: false,
+    complete: (results) => {
+      try {
+        const parsed = parseSheetMatrix(results.data);
+        if (!parsed.kpis.length) throw new Error("Tiada rekod KPI dikesan dalam CSV.");
+        saveCache(results.data);
+        initialiseDashboard(parsed);
+        setDataStatus("success", "Data langsung");
+        elements.errorBanner.hidden = true;
+      } catch (error) {
+        console.error(error);
+        loadViaGvizJsonp(error.message);
+        return;
+      } finally {
+        if (state.kpis.length) setLoading(false);
+      }
+    },
+    error: (error) => {
+      console.error(error);
+      loadViaGvizJsonp("Permintaan CSV ke Google Sheet gagal.");
+    }
+  });
+}
+
+
+function loadViaGvizJsonp(previousMessage) {
+  const oldScript = document.getElementById("gvizJsonpScript");
+  if (oldScript) oldScript.remove();
+
+  let settled = false;
+  const timeout = window.setTimeout(() => {
+    if (settled) return;
+    settled = true;
+    cleanup();
+    useCacheOrShowError(`${previousMessage} Kaedah sandaran Google Visualization juga gagal.`);
+    setLoading(false);
+  }, 15000);
+
+  function cleanup() {
+    window.clearTimeout(timeout);
+    document.getElementById("gvizJsonpScript")?.remove();
+    try { delete window.__kelantanGvizCallback; } catch (_) { window.__kelantanGvizCallback = undefined; }
+  }
+
+  window.__kelantanGvizCallback = (response) => {
+    if (settled) return;
+    settled = true;
+    try {
+      if (response?.status === "error") {
+        throw new Error(response.errors?.[0]?.detailed_message || "Google Visualization memulangkan ralat.");
+      }
+      const matrix = gvizResponseToMatrix(response);
+      const parsed = parseSheetMatrix(matrix);
+      if (!parsed.kpis.length) throw new Error("Tiada rekod KPI dikesan melalui Google Visualization.");
+      saveCache(matrix);
+      initialiseDashboard(parsed);
+      setDataStatus("success", "Data langsung");
+      elements.errorBanner.hidden = true;
+    } catch (error) {
+      console.error(error);
+      useCacheOrShowError(error.message);
+    } finally {
+      cleanup();
+      setLoading(false);
+    }
+  };
+
+  const script = document.createElement("script");
+  script.id = "gvizJsonpScript";
+  script.src = `${SHEET_GVIZ_URL}&_=${Date.now()}`;
+  script.async = true;
+  script.onerror = () => {
+    if (settled) return;
+    settled = true;
+    cleanup();
+    useCacheOrShowError(`${previousMessage} Skrip Google Visualization tidak dapat dimuatkan.`);
+    setLoading(false);
+  };
+  document.head.appendChild(script);
+}
+
+function gvizResponseToMatrix(response) {
+  const columnCount = response?.table?.cols?.length || 0;
+  return (response?.table?.rows || []).map((row) => {
+    const cells = row.c || [];
+    return Array.from({ length: columnCount }, (_, index) => {
+      const cell = cells[index];
+      if (!cell) return "";
+      if (cell.f !== undefined && cell.f !== null) return String(cell.f);
+      if (cell.v instanceof Date) return cell.v.toISOString();
+      return cell.v === undefined || cell.v === null ? "" : String(cell.v);
+    });
+  });
+}
+
+function saveCache(matrix) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), matrix }));
+  } catch (error) {
+    console.warn("Cache tidak dapat disimpan:", error);
+  }
+}
+
+function useCacheOrShowError(message) {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    if (cached?.matrix) {
+      initialiseDashboard(parseSheetMatrix(cached.matrix));
+      const cachedTime = new Date(cached.savedAt);
+      setDataStatus("error", "Menggunakan cache");
+      elements.errorMessage.textContent = `${message} Paparan menggunakan data cache ${formatDateTime(cachedTime)}.`;
+      elements.errorBanner.hidden = false;
+      return;
+    }
+  } catch (error) {
+    console.warn("Cache rosak:", error);
+  }
+  showLoadError(message);
+}
+
+function showLoadError(message) {
+  setDataStatus("error", "Data gagal dimuatkan");
+  elements.errorMessage.textContent = message;
+  elements.errorBanner.hidden = false;
+  setLoading(false);
+}
+
+function handleCsvUpload(event) {
+  const [file] = event.target.files;
+  if (!file) return;
+  setLoading(true);
+
+  Papa.parse(file, {
+    skipEmptyLines: false,
+    complete: (results) => {
+      try {
+        const parsed = parseSheetMatrix(results.data);
+        if (!parsed.kpis.length) throw new Error("Fail CSV tidak mengandungi format KPI yang dijangka.");
+        initialiseDashboard(parsed);
+        setDataStatus("success", "CSV tempatan");
+        elements.errorBanner.hidden = true;
+      } catch (error) {
+        showLoadError(error.message);
+      } finally {
+        setLoading(false);
+        event.target.value = "";
+      }
+    },
+    error: (error) => {
+      showLoadError(error.message || "Fail CSV gagal dibaca.");
+      event.target.value = "";
+    }
+  });
+}
+
+function parseSheetMatrix(rawRows) {
+  const rows = rawRows.map((row) => row.map(cleanCell));
+  const headerIndex = rows.findIndex((row) => {
+    const normalized = row.map(normalizeText);
+    return normalized.includes("KRA") && normalized.some((cell) => cell.includes("INDIKATOR")) && normalized.includes("NEGERI");
+  });
+
+  if (headerIndex < 0) throw new Error("Baris tajuk KRA / INDIKATOR / NEGERI tidak ditemui.");
+
+  const headers = rows[headerIndex].map(normalizeText);
+  const indexes = {
+    kra: findHeader(headers, ["KRA"]),
+    bil: findHeader(headers, ["BIL", "BIL."]),
+    indicator: findHeader(headers, ["INDIKATOR"]),
+    numerator: findHeader(headers, ["NUMERATOR"]),
+    denominator: findHeader(headers, ["DENOMINATOR"]),
+    target: findHeader(headers, ["SASARAN 2026", "SASARAN"]),
+    negeri: findHeader(headers, ["NEGERI"])
+  };
+
+  if (Object.values(indexes).some((index) => index < 0)) {
+    throw new Error("Struktur lajur Google Sheet telah berubah.");
+  }
+
+  const districtColumns = [];
+  for (let column = indexes.target + 1; column < indexes.negeri; column += 1) {
+    const code = cleanCell(rows[headerIndex][column]).toUpperCase();
+    if (code) districtColumns.push({ code, column });
+  }
+
+  const groups = [];
+  let currentGroup = null;
+  let currentKra = "Tanpa KRA";
+
+  for (let rowIndex = headerIndex + 1; rowIndex < rows.length; rowIndex += 1) {
+    const row = rows[rowIndex];
+    const kraCell = row[indexes.kra];
+    const bilCell = row[indexes.bil];
+
+    if (kraCell) currentKra = kraCell;
+
+    if (/^\d+(?:\.0+)?$/.test(bilCell.replace(/,/g, ""))) {
+      if (currentGroup) groups.push(currentGroup);
+      currentGroup = {
+        number: String(parseInt(bilCell.replace(/,/g, ""), 10)),
+        kra: currentKra,
+        indicator: row[indexes.indicator],
+        numeratorDefinition: row[indexes.numerator],
+        denominatorDefinition: row[indexes.denominator],
+        targetText: row[indexes.target],
+        rows: [row]
+      };
+      continue;
+    }
+
+    if (!currentGroup) continue;
+
+    const hasRelevantValue = [
+      row[indexes.indicator], row[indexes.target], row[indexes.negeri],
+      ...districtColumns.map(({ column }) => row[column])
+    ].some(Boolean);
+
+    if (hasRelevantValue) {
+      currentGroup.rows.push(row);
+      if (!currentGroup.indicator && row[indexes.indicator]) currentGroup.indicator = row[indexes.indicator];
+      if (!currentGroup.targetText && row[indexes.target]) currentGroup.targetText = row[indexes.target];
+    }
+  }
+  if (currentGroup) groups.push(currentGroup);
+
+  const kpis = groups
+    .filter((group) => group.indicator || group.targetText)
+    .map((group) => buildKpi(group, indexes, districtColumns));
+
+  return { kpis, districtCodes: districtColumns.map(({ code }) => code) };
+}
+
+function buildKpi(group, indexes, districtColumns) {
+  const target = parseTargets(group.targetText);
+  const stateSeries = group.rows.map((row) => parseNumber(row[indexes.negeri]));
+  const stateCurrent = pickCurrentValue(stateSeries, target.unit);
+  const stateStatus = evaluateStatus(stateCurrent, target.state);
+
+  const locations = {};
+  for (const { code, column } of districtColumns) {
+    const series = group.rows.map((row) => parseNumber(row[column]));
+    const current = pickCurrentValue(series, target.unit);
+    locations[code] = {
+      current,
+      numerator: firstFinite(series),
+      denominator: secondFinite(series),
+      status: evaluateStatus(current, target.national)
+    };
+  }
+
+  locations.NEGERI = {
+    current: stateCurrent,
+    numerator: firstFinite(stateSeries),
+    denominator: secondFinite(stateSeries),
+    status: stateStatus
+  };
+
+  return {
+    number: group.number,
+    kra: group.kra || "Tanpa KRA",
+    indicator: group.indicator || `KPI ${group.number}`,
+    numeratorDefinition: group.numeratorDefinition,
+    denominatorDefinition: group.denominatorDefinition,
+    targetText: group.targetText,
+    target,
+    locations
+  };
+}
+
+function parseTargets(text) {
+  const source = cleanCell(text);
+  const unit = source.includes("%") ? "%" : "count";
+  const normalized = source.replace(/≥/g, ">=").replace(/≤/g, "<=");
+  const nationalSection = normalized.match(/Kebangsaan\s*:\s*([\s\S]*?)(?=Negeri\s*:|$)/i)?.[1] || normalized;
+  const stateSection = normalized.match(/Negeri\s*:\s*([\s\S]*)$/i)?.[1] || "";
+
+  const nationalValue = extractThreshold(nationalSection);
+  const stateValue = stateSection ? extractThreshold(stateSection) : nationalValue;
+  const nationalComparable = Number.isFinite(nationalValue) && !isComparisonTarget(nationalSection);
+  const stateComparable = Number.isFinite(stateValue) && !isComparisonTarget(stateSection);
+
+  return {
+    unit,
+    national: { value: nationalValue, comparable: nationalComparable, raw: nationalSection || source },
+    state: { value: stateValue, comparable: stateComparable, raw: stateSection || nationalSection || source }
+  };
+}
+
+function extractThreshold(text) {
+  if (!text) return null;
+  const match = text.match(/(?:>=|>|sekurang-kurangnya)\s*([\d,.]+)/i) || text.match(/([\d,.]+)/);
+  return match ? parseNumber(match[1]) : null;
+}
+
+function isComparisonTarget(text) {
+  return /peningkatan|berbanding|tahun 2025|tahun sebelumnya/i.test(text || "");
+}
+
+function evaluateStatus(current, target) {
+  if (!Number.isFinite(current)) return "no-data";
+  if (!target?.comparable || !Number.isFinite(target.value)) return "review";
+  return current >= target.value ? "achieved" : "below";
+}
+
+function pickCurrentValue(series, unit) {
+  if (!series.length) return null;
+  if (unit === "%") return Number.isFinite(series.at(-1)) ? series.at(-1) : null;
+  return firstFinite(series);
+}
+
+function firstFinite(series) {
+  return series.find(Number.isFinite) ?? null;
+}
+
+function secondFinite(series) {
+  const values = series.filter(Number.isFinite);
+  return values.length > 1 ? values[1] : null;
+}
+
+function initialiseDashboard(parsed) {
+  state.kpis = parsed.kpis;
+  state.districtCodes = parsed.districtCodes;
+  state.lastLoadedAt = new Date();
+  populateFilters();
+  applyFilters();
+  elements.lastUpdated.textContent = `Dikemas kini ${formatDateTime(state.lastLoadedAt)}`;
+}
+
+function populateFilters() {
+  const selectedKra = elements.kraFilter.value;
+  const kras = [...new Set(state.kpis.map((kpi) => kpi.kra).filter(Boolean))];
+  elements.kraFilter.innerHTML = '<option value="all">Semua KRA</option>' + kras
+    .map((kra) => `<option value="${escapeHtml(kra)}">${escapeHtml(kra)}</option>`)
+    .join("");
+  if (kras.includes(selectedKra)) elements.kraFilter.value = selectedKra;
+
+  const selectedDistrict = state.selectedLocation;
+  elements.districtFilter.innerHTML = ["NEGERI", ...state.districtCodes]
+    .map((code) => `<option value="${escapeHtml(code)}">${escapeHtml(locationName(code))}</option>`)
+    .join("");
+  elements.districtFilter.value = ["NEGERI", ...state.districtCodes].includes(selectedDistrict) ? selectedDistrict : "NEGERI";
+  state.selectedLocation = elements.districtFilter.value;
+}
+
+function applyFilters() {
+  const query = normalizeText(elements.searchInput.value);
+  const selectedKra = elements.kraFilter.value;
+  const selectedStatus = elements.statusFilter.value;
+  const location = state.selectedLocation;
+
+  state.filtered = state.kpis.filter((kpi) => {
+    const searchable = normalizeText(`${kpi.number} ${kpi.kra} ${kpi.indicator}`);
+    const locationStatus = kpi.locations[location]?.status || "no-data";
+    return (!query || searchable.includes(query))
+      && (selectedKra === "all" || kpi.kra === selectedKra)
+      && (selectedStatus === "all" || locationStatus === selectedStatus);
+  });
+
+  elements.selectedLocationBadge.textContent = locationName(location);
+  renderAll();
+}
+
+function renderAll() {
+  const summary = calculateSummary(state.filtered, state.selectedLocation);
+  renderSummary(summary);
+  renderStatusChart(summary);
+  renderDistrictChart();
+  renderComparisonChart();
+  renderKpiCards();
+}
+
+function calculateSummary(kpis, location) {
+  const counts = { achieved: 0, below: 0, review: 0, "no-data": 0 };
+  for (const kpi of kpis) {
+    const status = kpi.locations[location]?.status || "no-data";
+    counts[status] += 1;
+  }
+  const comparable = counts.achieved + counts.below;
+  return {
+    total: kpis.length,
+    ...counts,
+    comparable,
+    rate: comparable ? (counts.achieved / comparable) * 100 : 0
+  };
+}
+
+function renderSummary(summary) {
+  elements.totalKpi.textContent = formatNumber(summary.total, 0);
+  if (elements.totalKpiOrb) elements.totalKpiOrb.textContent = formatNumber(summary.total, 0);
+  elements.totalKpiCaption.textContent = `${summary.comparable} KPI boleh dinilai`;
+  elements.achievedKpi.textContent = formatNumber(summary.achieved, 0);
+  elements.achievedCaption.textContent = `${summary.comparable} KPI boleh dinilai`;
+  elements.belowKpi.textContent = formatNumber(summary.below, 0);
+  elements.achievementRate.textContent = `${formatNumber(summary.rate, 0)}%`;
+}
+
+function renderStatusChart(summary) {
+  if (!window.Chart) return;
+  const labels = ["Mencapai sasaran", "Perlu tindakan", "Perlu semakan", "Tiada data"];
+  const values = [summary.achieved, summary.below, summary.review, summary["no-data"]];
+  const colors = [STATUS_CONFIG.achieved.color, STATUS_CONFIG.below.color, STATUS_CONFIG.review.color, STATUS_CONFIG["no-data"].color];
+
+  destroyChart("status");
+  state.charts.status = new Chart($("#statusChart"), {
+    type: "doughnut",
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0, hoverOffset: 5 }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "72%",
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (context) => ` ${context.label}: ${context.raw} KPI` } }
+      }
+    },
+    plugins: [{
+      id: "centerText",
+      afterDraw(chart) {
+        const { ctx, chartArea } = chart;
+        if (!chartArea) return;
+        ctx.save();
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "#19324c";
+        ctx.font = "800 30px Inter, system-ui, sans-serif";
+        ctx.fillText(`${formatNumber(summary.rate, 0)}%`, (chartArea.left + chartArea.right) / 2, (chartArea.top + chartArea.bottom) / 2 - 8);
+        ctx.fillStyle = "#718196";
+        ctx.font = "700 11px Inter, system-ui, sans-serif";
+        ctx.fillText("KADAR CAPAI", (chartArea.left + chartArea.right) / 2, (chartArea.top + chartArea.bottom) / 2 + 18);
+        ctx.restore();
+      }
+    }]
+  });
+
+  elements.statusLegend.innerHTML = [
+    ["achieved", summary.achieved, "KPI melepasi sasaran"],
+    ["below", summary.below, "KPI memerlukan tindakan"],
+    ["review", summary.review, "Sasaran perlu perbandingan"],
+    ["no-data", summary["no-data"], "Belum mempunyai nilai"]
+  ].map(([status, value, caption]) => {
+    const config = STATUS_CONFIG[status];
+    return `
+      <div class="metric-row">
+        <span class="metric-dot" style="background:${config.color}"></span>
+        <span class="metric-copy"><strong>${config.label}</strong><span>${caption}</span></span>
+        <span class="metric-value">${value}</span>
+      </div>`;
+  }).join("");
+}
+
+function renderDistrictChart() {
+  if (!window.Chart) return;
+  const data = state.districtCodes.map((code) => {
+    const comparable = state.filtered.filter((kpi) => ["achieved", "below"].includes(kpi.locations[code]?.status));
+    const achieved = comparable.filter((kpi) => kpi.locations[code]?.status === "achieved").length;
+    return {
+      code,
+      rate: comparable.length ? (achieved / comparable.length) * 100 : 0,
+      achieved,
+      comparable: comparable.length
+    };
+  }).sort((a, b) => b.rate - a.rate);
+
+  destroyChart("district");
+  state.charts.district = new Chart($("#districtChart"), {
+    type: "bar",
+    data: {
+      labels: data.map((item) => item.code),
+      datasets: [{
+        label: "Kadar pencapaian",
+        data: data.map((item) => item.rate),
+        backgroundColor: data.map((item) => item.rate >= 80 ? "rgba(54,175,150,.78)" : item.rate >= 60 ? "rgba(239,173,69,.78)" : "rgba(239,120,111,.78)"),
+        borderRadius: 9,
+        borderSkipped: false,
+        maxBarThickness: 34
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => locationName(data[items[0].dataIndex].code),
+            label: (context) => {
+              const item = data[context.dataIndex];
+              return ` ${formatNumber(item.rate, 0)}% · ${item.achieved}/${item.comparable} KPI`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { weight: 800 } } },
+        y: { beginAtZero: true, max: 100, ticks: { callback: (value) => `${value}%`, stepSize: 20 } }
+      }
+    }
+  });
+}
+
+function renderComparisonChart() {
+  if (!window.Chart) return;
+  const location = state.selectedLocation;
+  const comparable = state.filtered
+    .map((kpi) => {
+      const current = kpi.locations[location]?.current;
+      const target = location === "NEGERI" ? kpi.target.state : kpi.target.national;
+      if (!Number.isFinite(current) || !target?.comparable || !Number.isFinite(target.value) || target.value === 0) return null;
+      return { kpi, current, target: target.value, index: (current / target.value) * 100 };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.kpi.number.localeCompare(b.kpi.number, undefined, { numeric: true }))
+    .slice(0, 24);
+
+  const horizontal = window.innerWidth <= 620;
+  const comparisonScales = horizontal
+    ? {
+        x: { beginAtZero: true, suggestedMax: 120, ticks: { callback: (value) => `${value}`, font: { size: 10, weight: 700 } } },
+        y: { grid: { display: false }, ticks: { font: { size: 10, weight: 700 } } }
+      }
+    : {
+        x: { grid: { display: false }, ticks: { font: { size: 10, weight: 700 }, maxRotation: 0, autoSkip: true } },
+        y: { beginAtZero: true, suggestedMax: 120, ticks: { callback: (value) => `${value}`, font: { size: 10, weight: 700 } } }
+      };
+
+  destroyChart("comparison");
+  state.charts.comparison = new Chart($("#comparisonChart"), {
+    type: "bar",
+    data: {
+      labels: comparable.map((item) => `KPI ${item.kpi.number}`),
+      datasets: [
+        {
+          label: "Indeks pencapaian",
+          data: comparable.map((item) => Math.min(item.index, 180)),
+          backgroundColor: comparable.map((item) => item.index >= 100 ? "rgba(54,175,150,.78)" : "rgba(239,120,111,.78)"),
+          borderRadius: 7,
+          borderSkipped: false,
+          maxBarThickness: 25
+        }
+      ]
+    },
+    options: {
+      indexAxis: horizontal ? "y" : "x",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => comparable[items[0].dataIndex]?.kpi.indicator || "",
+            label: (context) => {
+              const item = comparable[context.dataIndex];
+              return [
+                ` Indeks: ${formatNumber(item.index, 1)}`,
+                ` Semasa: ${formatMetric(item.current, item.kpi.target.unit)}`,
+                ` Sasaran: ${formatMetric(item.target, item.kpi.target.unit)}`
+              ];
+            }
+          }
+        }
+      },
+      scales: comparisonScales
+    },
+    plugins: [{
+      id: "targetLine",
+      afterDatasetsDraw(chart) {
+        const scale = chart.options.indexAxis === "y" ? chart.scales.x : chart.scales.y;
+        const pixel = scale.getPixelForValue(100);
+        const { ctx, chartArea } = chart;
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = "rgba(25,50,76,.45)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        if (chart.options.indexAxis === "y") {
+          ctx.moveTo(pixel, chartArea.top);
+          ctx.lineTo(pixel, chartArea.bottom);
+        } else {
+          ctx.moveTo(chartArea.left, pixel);
+          ctx.lineTo(chartArea.right, pixel);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+function renderKpiCards() {
+  elements.resultCount.textContent = `${state.filtered.length} KPI`;
+  if (!state.filtered.length) {
+    elements.kpiGrid.innerHTML = "";
+    elements.kpiGrid.append(elements.emptyStateTemplate.content.cloneNode(true));
+    return;
+  }
+
+  const location = state.selectedLocation;
+  elements.kpiGrid.innerHTML = state.filtered.map((kpi) => {
+    const locationData = kpi.locations[location] || { current: null, status: "no-data" };
+    const config = STATUS_CONFIG[locationData.status];
+    const target = location === "NEGERI" ? kpi.target.state : kpi.target.national;
+    const progress = calculateProgress(locationData.current, target);
+    const targetDisplay = target?.comparable && Number.isFinite(target.value)
+      ? `≥ ${formatMetric(target.value, kpi.target.unit)}`
+      : "Semakan YoY";
+    const currentDisplay = formatMetric(locationData.current, kpi.target.unit);
+    const meta = locationData.status === "review"
+      ? "Perlu data tahun asas"
+      : Number.isFinite(locationData.numerator) && Number.isFinite(locationData.denominator)
+        ? `${formatNumber(locationData.numerator, 0)} / ${formatNumber(locationData.denominator, 0)}`
+        : "Nilai agregat";
+
+    return `
+      <article class="kpi-card" style="--status-color:${config.color};--status-soft:${config.soft}">
+        <div class="kpi-card-header">
+          <span class="kpi-number">${escapeHtml(kpi.number)}</span>
+          <span class="status-pill">${config.label}</span>
+        </div>
+        <p class="kpi-kra">${escapeHtml(kpi.kra)}</p>
+        <h3 class="kpi-title">${escapeHtml(kpi.indicator)}</h3>
+        <div class="kpi-score-row">
+          <div>
+            <span class="score-label">${escapeHtml(locationName(location))}</span>
+            <strong class="score-value">${currentDisplay}</strong>
+          </div>
+          <div class="target-box">
+            <span class="target-label">Sasaran</span>
+            <span class="target-value">${targetDisplay}</span>
+          </div>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Kemajuan KPI ${escapeHtml(kpi.number)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(progress)}">
+          <div class="progress-bar" style="width:${progress}%"></div>
+        </div>
+        <div class="progress-copy"><span>${progress ? `${formatNumber(progress, 0)}% daripada sasaran` : "Belum dapat dikira"}</span><span>${escapeHtml(meta)}</span></div>
+        <div class="kpi-meta"><span>KPI ${escapeHtml(kpi.number)}</span><span>${escapeHtml(shortenTarget(kpi.targetText))}</span></div>
+      </article>`;
+  }).join("");
+}
+
+function calculateProgress(current, target) {
+  if (!Number.isFinite(current) || !target?.comparable || !Number.isFinite(target.value) || target.value <= 0) return 0;
+  return Math.max(0, Math.min(100, (current / target.value) * 100));
+}
+
+function destroyChart(name) {
+  state.charts[name]?.destroy();
+  state.charts[name] = null;
+}
+
+function findHeader(headers, aliases) {
+  return headers.findIndex((header) => aliases.some((alias) => header === normalizeText(alias) || header.startsWith(normalizeText(alias))));
+}
+
+function cleanCell(value) {
+  return String(value ?? "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalizeText(value) {
+  return cleanCell(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.]/g, "")
+    .toUpperCase();
+}
+
+function parseNumber(value) {
+  const text = cleanCell(value);
+  if (!text || /#DIV\/0!|#N\/A|#VALUE!|#REF!|N\/A|NA/i.test(text)) return null;
+  const sanitized = text
+    .replace(/%/g, "")
+    .replace(/\s/g, "")
+    .replace(/,(?=\d{3}(?:\D|$))/g, "")
+    .replace(/[^0-9.-]/g, "");
+  if (!sanitized || sanitized === "-" || sanitized === ".") return null;
+  const number = Number(sanitized);
+  return Number.isFinite(number) ? number : null;
+}
+
+function formatNumber(value, maximumFractionDigits = 2) {
+  if (!Number.isFinite(value)) return "—";
+  return new Intl.NumberFormat("ms-MY", { maximumFractionDigits }).format(value);
+}
+
+function formatMetric(value, unit) {
+  if (!Number.isFinite(value)) return "—";
+  if (unit === "%") return `${formatNumber(value, value % 1 ? 2 : 0)}%`;
+  return formatNumber(value, value % 1 ? 2 : 0);
+}
+
+function formatDateTime(date) {
+  return new Intl.DateTimeFormat("ms-MY", {
+    day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+  }).format(date);
+}
+
+function locationName(code) {
+  return DISTRICT_NAMES[code] || code;
+}
+
+function shortenTarget(text) {
+  const clean = cleanCell(text);
+  return clean.length > 55 ? `${clean.slice(0, 52)}…` : clean || "Sasaran tidak dinyatakan";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+  </script>
+</body>
+</html>
