@@ -317,7 +317,7 @@ h1 {
 .filter-panel { padding: 18px; }
 .control-panel {
   display: grid;
-  grid-template-columns: minmax(280px, 1.4fr) repeat(3, minmax(160px, 0.72fr));
+  grid-template-columns: minmax(260px, 1.35fr) repeat(4, minmax(145px, 0.7fr));
   gap: 14px;
 }
 .filter-group label {
@@ -363,6 +363,56 @@ input:focus, select:focus {
   background: rgba(255,255,255,0.22);
   box-shadow: inset 0 0 0 1px rgba(123,182,255,0.55), 0 0 0 4px rgba(123,182,255,0.12);
 }
+.toggle-button {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 13px 0 15px;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  font-weight: 800;
+}
+.toggle-button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(123,182,255,0.65), 0 0 0 4px rgba(123,182,255,0.12);
+}
+.toggle-copy {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78rem;
+}
+.toggle-track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 27px;
+  border-radius: 999px;
+  background: rgba(124,134,152,0.26);
+  box-shadow: inset 0 1px 3px rgba(60,72,97,0.12), inset 0 1px 0 rgba(255,255,255,0.55);
+  transition: background 180ms ease;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 3px 8px rgba(60,72,97,0.22), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: transform 180ms ease;
+}
+.toggle-button.is-active .toggle-track {
+  background: linear-gradient(135deg, rgba(87,200,174,0.95), rgba(74,177,156,0.88));
+}
+.toggle-button.is-active .toggle-thumb { transform: translateX(19px); }
 .panel-overview .overview-layout {
   display: grid;
   grid-template-columns: 1.08fr 0.92fr;
@@ -543,7 +593,7 @@ input:focus, select:focus {
 .section-heading { margin-bottom: 14px; }
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 .kpi-card {
@@ -685,6 +735,76 @@ input:focus, select:focus {
   font-size: 0.68rem;
 }
 .kpi-meta span:last-child { text-align: right; }
+.district-values {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.38);
+}
+.district-value {
+  min-width: 0;
+  padding: 10px 9px;
+  border: 1px solid rgba(255,255,255,0.42);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.64);
+}
+.district-value.is-selected {
+  background: rgba(123,182,255,0.18);
+  box-shadow: inset 0 0 0 1px rgba(123,182,255,0.28), inset 0 1px 0 rgba(255,255,255,0.72);
+}
+.district-value.is-negeri {
+  grid-column: span 2;
+  background: linear-gradient(145deg, rgba(255,255,255,0.35), rgba(87,200,174,0.13));
+}
+.district-value-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.district-code {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.district-status-dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--district-status, #9aa9b9);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--district-status, #9aa9b9) 18%, transparent);
+}
+.district-metric {
+  display: block;
+  overflow: hidden;
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.district-name {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.58rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .empty-state {
   grid-column: 1 / -1;
   padding: 55px 24px;
@@ -752,6 +872,7 @@ footer {
   .filter-search { grid-column: 1 / -1; }
   .panel-overview .overview-layout { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .district-values { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 980px) {
   .dashboard-grid, .analytics-grid { grid-template-columns: 1fr; }
@@ -784,11 +905,14 @@ footer {
   .chart-box-wide { height: 440px; }
   .kpi-grid { grid-template-columns: 1fr; }
   .kpi-card { min-height: 272px; }
+  .district-values { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   footer { flex-direction: column; gap: 5px; }
   .error-banner { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 420px) {
   .summary-grid, .showcase-grid { grid-template-columns: 1fr; }
+  .district-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .district-value.is-negeri { grid-column: span 2; }
   .header-right { align-items: flex-start; }
   .orb { width: 90px; height: 90px; }
   .orb strong { font-size: 1.75rem; }
@@ -867,6 +991,16 @@ footer {
           <div class="filter-group">
             <label for="districtFilter">Paparan lokasi</label>
             <div class="filter-control"><select id="districtFilter"><option value="NEGERI">Negeri Kelantan</option></select></div>
+          </div>
+
+          <div class="filter-group">
+            <label for="negeriToggle">Nilai negeri dalam kad</label>
+            <div class="filter-control">
+              <button id="negeriToggle" class="toggle-button is-active" type="button" role="switch" aria-checked="true" aria-pressed="true">
+                <span id="negeriToggleText" class="toggle-copy">Negeri ditunjukkan</span>
+                <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -1078,6 +1212,7 @@ const state = {
   filtered: [],
   districtCodes: [],
   selectedLocation: "NEGERI",
+  includeNegeriInCards: true,
   charts: { status: null, district: null, comparison: null },
   lastLoadedAt: null
 };
@@ -1105,6 +1240,8 @@ function cacheElements() {
     kraFilter: $("#kraFilter"),
     statusFilter: $("#statusFilter"),
     districtFilter: $("#districtFilter"),
+    negeriToggle: $("#negeriToggle"),
+    negeriToggleText: $("#negeriToggleText"),
     refreshButton: $("#refreshButton"),
     dataStatus: $("#dataStatus"),
     dataStatusText: $("#dataStatusText"),
@@ -1128,8 +1265,21 @@ function bindEvents() {
     state.selectedLocation = elements.districtFilter.value;
     applyFilters();
   });
+  elements.negeriToggle.addEventListener("click", () => {
+    state.includeNegeriInCards = !state.includeNegeriInCards;
+    updateNegeriToggle();
+    renderKpiCards();
+  });
   elements.refreshButton.addEventListener("click", () => loadDashboardData({ force: true }));
   elements.csvUpload.addEventListener("change", handleCsvUpload);
+}
+
+function updateNegeriToggle() {
+  const active = state.includeNegeriInCards;
+  elements.negeriToggle.classList.toggle("is-active", active);
+  elements.negeriToggle.setAttribute("aria-checked", String(active));
+  elements.negeriToggle.setAttribute("aria-pressed", String(active));
+  elements.negeriToggleText.textContent = active ? "Negeri ditunjukkan" : "Negeri disembunyikan";
 }
 
 function configureChartDefaults() {
@@ -1484,6 +1634,7 @@ function initialiseDashboard(parsed) {
   state.kpis = parsed.kpis;
   state.districtCodes = parsed.districtCodes;
   state.lastLoadedAt = new Date();
+  updateNegeriToggle();
   populateFilters();
   applyFilters();
   elements.lastUpdated.textContent = `Dikemas kini ${formatDateTime(state.lastLoadedAt)}`;
@@ -1759,6 +1910,10 @@ function renderKpiCards() {
   }
 
   const location = state.selectedLocation;
+  const cardLocations = state.includeNegeriInCards
+    ? [...state.districtCodes, "NEGERI"]
+    : [...state.districtCodes];
+
   elements.kpiGrid.innerHTML = state.filtered.map((kpi) => {
     const locationData = kpi.locations[location] || { current: null, status: "no-data" };
     const config = STATUS_CONFIG[locationData.status];
@@ -1774,6 +1929,25 @@ function renderKpiCards() {
         ? `${formatNumber(locationData.numerator, 0)} / ${formatNumber(locationData.denominator, 0)}`
         : "Nilai agregat";
 
+    const districtValues = cardLocations.map((code) => {
+      const districtData = kpi.locations[code] || { current: null, status: "no-data" };
+      const districtConfig = STATUS_CONFIG[districtData.status] || STATUS_CONFIG["no-data"];
+      const classes = [
+        "district-value",
+        code === location ? "is-selected" : "",
+        code === "NEGERI" ? "is-negeri" : ""
+      ].filter(Boolean).join(" ");
+      return `
+        <div class="${classes}" title="${escapeHtml(locationName(code))}: ${escapeHtml(formatMetric(districtData.current, kpi.target.unit))}">
+          <div class="district-value-head">
+            <span class="district-code">${escapeHtml(code === "NEGERI" ? "NEGERI" : code)}</span>
+            <span class="district-status-dot" style="--district-status:${districtConfig.color}" aria-label="${escapeHtml(districtConfig.label)}"></span>
+          </div>
+          <strong class="district-metric">${formatMetric(districtData.current, kpi.target.unit)}</strong>
+          <span class="district-name">${escapeHtml(locationName(code))}</span>
+        </div>`;
+    }).join("");
+
     return `
       <article class="kpi-card" style="--status-color:${config.color};--status-soft:${config.soft}">
         <div class="kpi-card-header">
@@ -1784,7 +1958,7 @@ function renderKpiCards() {
         <h3 class="kpi-title">${escapeHtml(kpi.indicator)}</h3>
         <div class="kpi-score-row">
           <div>
-            <span class="score-label">${escapeHtml(locationName(location))}</span>
+            <span class="score-label">Paparan aktif · ${escapeHtml(locationName(location))}</span>
             <strong class="score-value">${currentDisplay}</strong>
           </div>
           <div class="target-box">
@@ -1796,6 +1970,9 @@ function renderKpiCards() {
           <div class="progress-bar" style="width:${progress}%"></div>
         </div>
         <div class="progress-copy"><span>${progress ? `${formatNumber(progress, 0)}% daripada sasaran` : "Belum dapat dikira"}</span><span>${escapeHtml(meta)}</span></div>
+        <div class="district-values" aria-label="Nilai KPI ${escapeHtml(kpi.number)} mengikut daerah">
+          ${districtValues}
+        </div>
         <div class="kpi-meta"><span>KPI ${escapeHtml(kpi.number)}</span><span>${escapeHtml(shortenTarget(kpi.targetText))}</span></div>
       </article>`;
   }).join("");
