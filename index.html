@@ -317,7 +317,7 @@ h1 {
 .filter-panel { padding: 18px; }
 .control-panel {
   display: grid;
-  grid-template-columns: minmax(260px, 1.35fr) repeat(4, minmax(145px, 0.7fr));
+  grid-template-columns: minmax(280px, 1.4fr) repeat(3, minmax(160px, 0.72fr));
   gap: 14px;
 }
 .filter-group label {
@@ -363,56 +363,6 @@ input:focus, select:focus {
   background: rgba(255,255,255,0.22);
   box-shadow: inset 0 0 0 1px rgba(123,182,255,0.55), 0 0 0 4px rgba(123,182,255,0.12);
 }
-.toggle-button {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: 100%;
-  height: 48px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0 13px 0 15px;
-  border: 0;
-  color: var(--text);
-  background: transparent;
-  font-weight: 800;
-}
-.toggle-button:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 1px rgba(123,182,255,0.65), 0 0 0 4px rgba(123,182,255,0.12);
-}
-.toggle-copy {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.78rem;
-}
-.toggle-track {
-  position: relative;
-  flex: 0 0 auto;
-  width: 46px;
-  height: 27px;
-  border-radius: 999px;
-  background: rgba(124,134,152,0.26);
-  box-shadow: inset 0 1px 3px rgba(60,72,97,0.12), inset 0 1px 0 rgba(255,255,255,0.55);
-  transition: background 180ms ease;
-}
-.toggle-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 3px 8px rgba(60,72,97,0.22), inset 0 1px 0 rgba(255,255,255,0.9);
-  transition: transform 180ms ease;
-}
-.toggle-button.is-active .toggle-track {
-  background: linear-gradient(135deg, rgba(87,200,174,0.95), rgba(74,177,156,0.88));
-}
-.toggle-button.is-active .toggle-thumb { transform: translateX(19px); }
 .panel-overview .overview-layout {
   display: grid;
   grid-template-columns: 1.08fr 0.92fr;
@@ -593,13 +543,13 @@ input:focus, select:focus {
 .section-heading { margin-bottom: 14px; }
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 .kpi-card {
   display: flex;
   min-width: 0;
-  min-height: 430px;
+  min-height: 288px;
   flex-direction: column;
   padding: 20px;
   border-radius: 26px;
@@ -735,186 +685,6 @@ input:focus, select:focus {
   font-size: 0.68rem;
 }
 .kpi-meta span:last-child { text-align: right; }
-.district-infographic {
-  position: relative;
-  z-index: 1;
-  margin-top: 17px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.38);
-}
-.district-graph-shell {
-  position: relative;
-  overflow: hidden;
-  padding: 14px 14px 10px;
-  border: 1px solid rgba(255,255,255,0.48);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 86% 5%, rgba(123,182,255,0.18), transparent 32%),
-    linear-gradient(145deg, rgba(255,255,255,0.34), rgba(255,255,255,0.13));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 14px 28px rgba(91,105,135,0.07);
-}
-.district-graph-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(120deg, rgba(255,255,255,0.22), transparent 38%);
-}
-.district-graph-head {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-.graph-title span,
-.graph-title strong { display: block; }
-.graph-title span {
-  color: var(--muted);
-  font-size: 0.65rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.graph-title strong {
-  margin-top: 2px;
-  color: var(--navy);
-  font-size: 0.9rem;
-}
-.graph-legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 0.61rem;
-  font-weight: 750;
-}
-.graph-legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.legend-line,
-.legend-target {
-  display: inline-block;
-  width: 17px;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #7bb6ff, #57c8ae);
-}
-.legend-target {
-  height: 0;
-  border-top: 2px dashed rgba(35,59,95,0.46);
-  border-radius: 0;
-  background: none;
-}
-.district-line-chart {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  min-height: 188px;
-  overflow: visible;
-}
-.chart-grid-line {
-  stroke: rgba(93,107,136,0.12);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-.chart-axis-label {
-  fill: #8993a5;
-  font-size: 13px;
-  font-weight: 700;
-}
-.chart-district-label {
-  fill: #68758a;
-  font-size: 13px;
-  font-weight: 850;
-  letter-spacing: 0.03em;
-}
-.chart-area { opacity: 0.22; }
-.chart-line {
-  fill: none;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 7px 8px rgba(80,126,183,0.15));
-}
-.chart-target-line {
-  stroke: rgba(35,59,95,0.46);
-  stroke-width: 2;
-  stroke-dasharray: 8 7;
-  vector-effect: non-scaling-stroke;
-}
-.chart-target-label {
-  fill: #6f7b8f;
-  font-size: 12px;
-  font-weight: 850;
-}
-.chart-point-halo {
-  fill: none;
-  stroke: rgba(123,182,255,0.28);
-  stroke-width: 9;
-}
-.chart-point {
-  stroke: rgba(255,255,255,0.94);
-  stroke-width: 3;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 4px 6px rgba(61,75,105,0.15));
-}
-.chart-value-label {
-  fill: #233b5f;
-  font-size: 12px;
-  font-weight: 900;
-}
-.infographic-stats {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 9px;
-}
-.infographic-stat {
-  min-width: 0;
-  padding: 9px 10px;
-  border: 1px solid rgba(255,255,255,0.40);
-  border-radius: 15px;
-  background: rgba(255,255,255,0.19);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.58);
-}
-.infographic-stat span,
-.infographic-stat strong { display: block; }
-.infographic-stat span {
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 0.57rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.infographic-stat strong {
-  overflow: hidden;
-  margin-top: 3px;
-  color: var(--navy);
-  font-size: 0.82rem;
-  font-weight: 900;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.graph-caption {
-  margin: 9px 2px 0;
-  color: var(--muted);
-  font-size: 0.59rem;
-  line-height: 1.35;
-}
 .empty-state {
   grid-column: 1 / -1;
   padding: 55px 24px;
@@ -1014,18 +784,169 @@ footer {
   .chart-box-wide { height: 440px; }
   .kpi-grid { grid-template-columns: 1fr; }
   .kpi-card { min-height: 272px; }
-  .infographic-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   footer { flex-direction: column; gap: 5px; }
   .error-banner { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 420px) {
   .summary-grid, .showcase-grid { grid-template-columns: 1fr; }
-  .district-graph-head { flex-direction: column; }
-  .graph-legend { justify-content: flex-start; }
   .header-right { align-items: flex-start; }
   .orb { width: 90px; height: 90px; }
   .orb strong { font-size: 1.75rem; }
 }
+
+/* Compact upper dashboard: content-first desktop and mobile layout */
+.topbar {
+  align-items: center;
+  margin-bottom: 18px;
+}
+.header-actions { flex: 0 0 auto; }
+.subtitle { max-width: none; }
+.filter-panel { padding: 16px; }
+.filter-panel-header { display: none; }
+.control-panel {
+  grid-template-columns: minmax(260px, 1.45fr) repeat(3, minmax(145px, .72fr));
+  gap: 12px;
+}
+.filter-group label {
+  margin-bottom: 6px;
+  font-size: .66rem;
+}
+input, select { height: 46px; }
+.panel-overview .overview-layout { display: block; }
+.compact-heading { margin-bottom: 14px; }
+.panel-description {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .76rem;
+}
+.summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.mini-stat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 13px;
+  min-height: 105px;
+  padding: 14px;
+  border-radius: 21px;
+}
+.mini-stat .mini-icon {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+}
+.stat-content { position: relative; z-index: 1; min-width: 0; }
+.mini-stat strong { margin: 3px 0; font-size: clamp(1.6rem, 2vw, 2rem); }
+.chart-box-donut { height: 250px; }
+.metric-row { padding: 10px 12px; }
+
+@media (max-width: 780px) {
+  .app-shell { padding-top: 16px; }
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .brand-block { gap: 10px; min-width: 0; }
+  .brand-dots { gap: 4px; padding-top: 7px; }
+  .brand-dots span { width: 8px; height: 8px; border-radius: 3px; }
+  .eyebrow { font-size: .6rem; letter-spacing: .1em; }
+  h1 { font-size: clamp(1.55rem, 7vw, 2rem); white-space: nowrap; }
+  .subtitle { font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 65vw; }
+  .header-actions { margin-left: auto; }
+  .data-status {
+    display: inline-flex;
+    width: 42px;
+    min-height: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+  .data-status #dataStatusText { display: none; }
+  .icon-button { width: 42px; height: 42px; }
+
+  .filter-panel { padding: 12px 14px; border-radius: 24px; }
+  .filter-panel-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .filter-panel-title,
+  .filter-panel-summary { display: block; }
+  .filter-panel-title { color: var(--navy); font-size: .82rem; font-weight: 850; }
+  .filter-panel-summary { color: var(--muted); font-size: .68rem; margin-top: 2px; }
+  .filter-toggle-button {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    gap: 7px;
+    padding: 0 12px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 14px;
+    color: var(--navy);
+    background: rgba(255,255,255,.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+    font-size: .75rem;
+    font-weight: 800;
+  }
+  .filter-toggle-button svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .control-panel {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-top: 14px;
+  }
+  .filter-panel.is-open .control-panel { display: grid; }
+  .filter-search { grid-column: auto; }
+  .filter-group label { margin-left: 2px; }
+  input, select { height: 44px; }
+
+  .glass-panel { padding: 16px; border-radius: 24px; }
+  .panel-heading { margin-bottom: 12px; }
+  .soft-badge { min-height: 28px; padding: 0 9px; font-size: .66rem; }
+  .panel-description { display: none; }
+  .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .mini-stat {
+    display: block;
+    min-height: 112px;
+    padding: 12px;
+    border-radius: 19px;
+  }
+  .mini-stat .mini-icon { width: 34px; height: 34px; margin-bottom: 9px; }
+  .mini-icon svg { width: 18px; }
+  .stat-label { font-size: .68rem; }
+  .stat-caption { display: none; }
+  .mini-stat strong { font-size: 1.65rem; }
+  .donut-layout { grid-template-columns: 1fr; gap: 10px; }
+  .chart-box-donut { height: 220px; }
+  .metric-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .metric-row { padding: 9px; border-radius: 15px; }
+  .metric-copy span { display: none; }
+  .metric-copy strong { font-size: .7rem; }
+  .metric-value { font-size: 1rem; }
+}
+
+@media (max-width: 430px) {
+  .app-shell { width: min(100% - 14px, 1440px); }
+  .brand-dots, .eyebrow { display: none; }
+  .brand-block { min-width: 0; }
+  h1 { font-size: 1.4rem; }
+  .subtitle { max-width: 58vw; }
+  .header-actions { gap: 6px; }
+  .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mini-stat { min-height: 106px; }
+  .metric-list { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
@@ -1044,38 +965,42 @@ footer {
         <div>
           <p class="eyebrow">PROGRAM KESIHATAN PERGIGIAN</p>
           <h1>Dashboard <span class="title-emphasis">KPI Kelantan</span></h1>
-          <p class="subtitle">Reka bentuk berinspirasikan contoh yang diberi, dengan gaya liquid glass ala iOS untuk paparan desktop dan mudah alih.</p>
+          <p class="subtitle">Pemantauan pencapaian negeri dan daerah · Jan–Jun 2026</p>
         </div>
       </div>
 
-      <div class="header-right">
-        <div class="header-actions">
-          <div id="dataStatus" class="data-status" data-state="loading">
-            <span class="status-dot"></span>
-            <span id="dataStatusText">Memuatkan data…</span>
-          </div>
-          <button id="refreshButton" class="icon-button" type="button" title="Muat semula data" aria-label="Muat semula data">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 11a8.1 8.1 0 0 0-15.5-3M4 4v4h4M4 13a8.1 8.1 0 0 0 15.5 3M20 20v-4h-4" />
-            </svg>
-          </button>
+      <div class="header-actions">
+        <div id="dataStatus" class="data-status" data-state="loading">
+          <span class="status-dot"></span>
+          <span id="dataStatusText">Memuatkan data…</span>
         </div>
-        <div class="orb" aria-label="Jumlah KPI">
-          <span class="orb-label">Jumlah</span>
-          <strong id="totalKpiOrb">—</strong>
-          <span class="orb-subtitle">KPI</span>
-        </div>
+        <button id="refreshButton" class="icon-button" type="button" title="Muat semula data" aria-label="Muat semula data">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 11a8.1 8.1 0 0 0-15.5-3M4 4v4h4M4 13a8.1 8.1 0 0 0 15.5 3M20 20v-4h-4" />
+          </svg>
+        </button>
       </div>
     </header>
 
     <main class="dashboard-grid">
       <section class="glass-panel wide filter-panel" aria-label="Penapis dashboard">
-        <div class="control-panel">
+        <div class="filter-panel-header">
+          <div>
+            <span class="filter-panel-title">Penapis</span>
+            <span id="filterSummary" class="filter-panel-summary">Negeri Kelantan · Semua KPI</span>
+          </div>
+          <button id="filterToggle" class="filter-toggle-button" type="button" aria-expanded="false" aria-controls="filterControls">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
+            <span>Tapis</span>
+          </button>
+        </div>
+
+        <div id="filterControls" class="control-panel">
           <div class="filter-group filter-search">
-            <label for="searchInput">Carian KPI</label>
+            <label for="searchInput">Carian</label>
             <div class="filter-control input-shell">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
-              <input id="searchInput" type="search" placeholder="Cari indikator, KRA atau nombor KPI…" autocomplete="off" />
+              <input id="searchInput" type="search" placeholder="Cari KPI, indikator atau KRA…" autocomplete="off" />
             </div>
           </div>
 
@@ -1098,122 +1023,74 @@ footer {
           </div>
 
           <div class="filter-group">
-            <label for="districtFilter">Paparan lokasi</label>
+            <label for="districtFilter">Lokasi</label>
             <div class="filter-control"><select id="districtFilter"><option value="NEGERI">Negeri Kelantan</option></select></div>
-          </div>
-
-          <div class="filter-group">
-            <label for="negeriToggle">Nilai negeri dalam kad</label>
-            <div class="filter-control">
-              <button id="negeriToggle" class="toggle-button is-active" type="button" role="switch" aria-checked="true" aria-pressed="true">
-                <span id="negeriToggleText" class="toggle-copy">Negeri ditunjukkan</span>
-                <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
       <section class="glass-panel panel-overview">
-        <div class="panel-heading">
+        <div class="panel-heading compact-heading">
           <div>
-            <p class="panel-kicker">Overview</p>
-            <h2>Ringkasan prestasi KPI</h2>
+            <h2>Ringkasan KPI</h2>
+            <p class="panel-description">Status utama bagi lokasi yang dipilih.</p>
           </div>
           <span id="selectedLocationBadge" class="soft-badge">Negeri Kelantan</span>
         </div>
 
-        <div class="overview-layout">
-          <div class="summary-grid" aria-label="Ringkasan KPI">
-            <article class="mini-stat primary">
-              <div class="stat-top">
-                <div class="mini-icon" style="color:var(--blue)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2" /></svg>
-                </div>
-                <span class="mini-progress">KPI</span>
-              </div>
+        <div class="summary-grid" aria-label="Ringkasan KPI">
+          <article class="mini-stat primary">
+            <div class="mini-icon" style="color:var(--blue)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2" /></svg>
+            </div>
+            <div class="stat-content">
               <span class="stat-label">Jumlah KPI</span>
               <strong id="totalKpi">—</strong>
               <span id="totalKpiCaption" class="stat-caption">dalam set data</span>
-            </article>
+            </div>
+          </article>
 
-            <article class="mini-stat success">
-              <div class="stat-top">
-                <div class="mini-icon" style="color:var(--green)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
-                </div>
-                <span class="mini-progress">✓</span>
-              </div>
+          <article class="mini-stat success">
+            <div class="mini-icon" style="color:var(--green)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
+            </div>
+            <div class="stat-content">
               <span class="stat-label">Mencapai sasaran</span>
               <strong id="achievedKpi">—</strong>
               <span id="achievedCaption" class="stat-caption">daripada KPI boleh dinilai</span>
-            </article>
+            </div>
+          </article>
 
-            <article class="mini-stat warning">
-              <div class="stat-top">
-                <div class="mini-icon" style="color:var(--coral)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5m0 4h.01M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z" /></svg>
-                </div>
-                <span class="mini-progress">!</span>
-              </div>
+          <article class="mini-stat warning">
+            <div class="mini-icon" style="color:var(--coral)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5m0 4h.01M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z" /></svg>
+            </div>
+            <div class="stat-content">
               <span class="stat-label">Perlu tindakan</span>
               <strong id="belowKpi">—</strong>
               <span class="stat-caption">di bawah sasaran</span>
-            </article>
+            </div>
+          </article>
 
-            <article class="mini-stat rate">
-              <div class="stat-top">
-                <div class="mini-icon" style="color:var(--amber)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M7 15l4-4 3 3 5-7" /></svg>
-                </div>
-                <span class="mini-progress">%</span>
-              </div>
+          <article class="mini-stat rate">
+            <div class="mini-icon" style="color:var(--amber)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M7 15l4-4 3 3 5-7" /></svg>
+            </div>
+            <div class="stat-content">
               <span class="stat-label">Kadar pencapaian</span>
               <strong id="achievementRate">—</strong>
               <span class="stat-caption">KPI tercapai / boleh dinilai</span>
-            </article>
-          </div>
-
-          <div class="overview-showcase" aria-hidden="true">
-            <div class="showcase-card">
-              <p class="showcase-kicker">Visual summary</p>
-              <div class="chart-illusion">
-                <div class="lines-card">
-                  <div class="line-row one"><span>01</span><b></b></div>
-                  <div class="line-row two"><span>02</span><b></b></div>
-                  <div class="line-row three"><span>03</span><b></b></div>
-                </div>
-                <div class="bar-stage"><span></span><span></span><span></span><span></span></div>
-              </div>
             </div>
-            <div class="showcase-grid">
-              <div class="show-tile">
-                <span class="tile-label">Paparan</span>
-                <span class="tile-value">Desktop</span>
-              </div>
-              <div class="show-tile">
-                <span class="tile-label">Responsive</span>
-                <span class="tile-value">Mobile</span>
-              </div>
-            </div>
-            <div class="showcase-foot">
-              <div>
-                <p class="showcase-kicker" style="margin-bottom:2px">Tema</p>
-                <strong>Liquid Glass Dashboard</strong>
-              </div>
-              <span class="soft-badge">iOS inspired</span>
-            </div>
-          </div>
+          </article>
         </div>
       </section>
 
       <section class="glass-panel panel-performance">
-        <div class="panel-heading">
+        <div class="panel-heading compact-heading">
           <div>
-            <p class="panel-kicker">KPI Dashboard</p>
-            <h2>Status pencapaian KPI</h2>
+            <h2>Status pencapaian</h2>
+            <p class="panel-description">Pecahan KPI mengikut tahap pencapaian.</p>
           </div>
-          <span class="soft-badge">Analisis status</span>
         </div>
         <div class="donut-layout">
           <div class="chart-box chart-box-donut">
@@ -1321,7 +1198,6 @@ const state = {
   filtered: [],
   districtCodes: [],
   selectedLocation: "NEGERI",
-  includeNegeriInCards: true,
   charts: { status: null, district: null, comparison: null },
   lastLoadedAt: null
 };
@@ -1349,8 +1225,9 @@ function cacheElements() {
     kraFilter: $("#kraFilter"),
     statusFilter: $("#statusFilter"),
     districtFilter: $("#districtFilter"),
-    negeriToggle: $("#negeriToggle"),
-    negeriToggleText: $("#negeriToggleText"),
+    filterToggle: $("#filterToggle"),
+    filterPanel: document.querySelector(".filter-panel"),
+    filterSummary: $("#filterSummary"),
     refreshButton: $("#refreshButton"),
     dataStatus: $("#dataStatus"),
     dataStatusText: $("#dataStatusText"),
@@ -1374,21 +1251,13 @@ function bindEvents() {
     state.selectedLocation = elements.districtFilter.value;
     applyFilters();
   });
-  elements.negeriToggle.addEventListener("click", () => {
-    state.includeNegeriInCards = !state.includeNegeriInCards;
-    updateNegeriToggle();
-    renderKpiCards();
+  elements.filterToggle?.addEventListener("click", () => {
+    const isOpen = elements.filterPanel.classList.toggle("is-open");
+    elements.filterToggle.setAttribute("aria-expanded", String(isOpen));
+    elements.filterToggle.querySelector("span").textContent = isOpen ? "Tutup" : "Tapis";
   });
   elements.refreshButton.addEventListener("click", () => loadDashboardData({ force: true }));
   elements.csvUpload.addEventListener("change", handleCsvUpload);
-}
-
-function updateNegeriToggle() {
-  const active = state.includeNegeriInCards;
-  elements.negeriToggle.classList.toggle("is-active", active);
-  elements.negeriToggle.setAttribute("aria-checked", String(active));
-  elements.negeriToggle.setAttribute("aria-pressed", String(active));
-  elements.negeriToggleText.textContent = active ? "Negeri ditunjukkan" : "Negeri disembunyikan";
 }
 
 function configureChartDefaults() {
@@ -1743,7 +1612,6 @@ function initialiseDashboard(parsed) {
   state.kpis = parsed.kpis;
   state.districtCodes = parsed.districtCodes;
   state.lastLoadedAt = new Date();
-  updateNegeriToggle();
   populateFilters();
   applyFilters();
   elements.lastUpdated.textContent = `Dikemas kini ${formatDateTime(state.lastLoadedAt)}`;
@@ -1780,6 +1648,14 @@ function applyFilters() {
   });
 
   elements.selectedLocationBadge.textContent = locationName(location);
+  if (elements.filterSummary) {
+    const activeFilters = [
+      elements.kraFilter.value !== "all",
+      elements.statusFilter.value !== "all",
+      Boolean(elements.searchInput.value.trim())
+    ].filter(Boolean).length;
+    elements.filterSummary.textContent = `${locationName(location)} · ${state.filtered.length} KPI${activeFilters ? ` · ${activeFilters} penapis aktif` : ""}`;
+  }
   renderAll();
 }
 
@@ -2019,10 +1895,6 @@ function renderKpiCards() {
   }
 
   const location = state.selectedLocation;
-  const cardLocations = state.includeNegeriInCards
-    ? [...state.districtCodes, "NEGERI"]
-    : [...state.districtCodes];
-
   elements.kpiGrid.innerHTML = state.filtered.map((kpi) => {
     const locationData = kpi.locations[location] || { current: null, status: "no-data" };
     const config = STATUS_CONFIG[locationData.status];
@@ -2048,7 +1920,7 @@ function renderKpiCards() {
         <h3 class="kpi-title">${escapeHtml(kpi.indicator)}</h3>
         <div class="kpi-score-row">
           <div>
-            <span class="score-label">Paparan aktif · ${escapeHtml(locationName(location))}</span>
+            <span class="score-label">${escapeHtml(locationName(location))}</span>
             <strong class="score-value">${currentDisplay}</strong>
           </div>
           <div class="target-box">
@@ -2060,170 +1932,9 @@ function renderKpiCards() {
           <div class="progress-bar" style="width:${progress}%"></div>
         </div>
         <div class="progress-copy"><span>${progress ? `${formatNumber(progress, 0)}% daripada sasaran` : "Belum dapat dikira"}</span><span>${escapeHtml(meta)}</span></div>
-        ${renderKpiLineInfographic(kpi, cardLocations, location)}
         <div class="kpi-meta"><span>KPI ${escapeHtml(kpi.number)}</span><span>${escapeHtml(shortenTarget(kpi.targetText))}</span></div>
       </article>`;
   }).join("");
-}
-
-function renderKpiLineInfographic(kpi, codes, selectedCode) {
-  const width = 720;
-  const height = 260;
-  const padding = { top: 34, right: 24, bottom: 50, left: 52 };
-  const innerWidth = width - padding.left - padding.right;
-  const innerHeight = height - padding.top - padding.bottom;
-  const benchmark = kpi.target.national?.comparable && Number.isFinite(kpi.target.national.value)
-    ? kpi.target.national.value
-    : null;
-
-  const points = codes.map((code, index) => ({
-    code,
-    index,
-    value: kpi.locations[code]?.current ?? null,
-    status: kpi.locations[code]?.status || "no-data"
-  }));
-  const finitePoints = points.filter((point) => Number.isFinite(point.value));
-
-  if (!finitePoints.length) {
-    return `
-      <div class="district-infographic">
-        <div class="district-graph-shell">
-          <div class="district-graph-head">
-            <div class="graph-title"><span>Perbandingan daerah</span><strong>Data belum tersedia</strong></div>
-          </div>
-          <div class="empty-state" style="padding:32px 16px;border:0;background:transparent">
-            <p>Tiada nilai daerah yang boleh diplot untuk KPI ini.</p>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  const domainValues = finitePoints.map((point) => point.value);
-  if (Number.isFinite(benchmark)) domainValues.push(benchmark);
-  let minValue = Math.min(...domainValues);
-  let maxValue = Math.max(...domainValues);
-  const rawRange = maxValue - minValue;
-  const fallbackRange = Math.max(Math.abs(maxValue) * 0.16, kpi.target.unit === "%" ? 10 : 1);
-  const rangePadding = rawRange > 0 ? rawRange * 0.16 : fallbackRange;
-  minValue = Math.max(0, minValue - rangePadding);
-  maxValue += rangePadding;
-  if (maxValue === minValue) maxValue = minValue + 1;
-
-  const xFor = (index) => padding.left + (codes.length === 1 ? innerWidth / 2 : (index / (codes.length - 1)) * innerWidth);
-  const yFor = (value) => padding.top + ((maxValue - value) / (maxValue - minValue)) * innerHeight;
-
-  const segments = [];
-  let currentSegment = [];
-  for (const point of points) {
-    if (Number.isFinite(point.value)) {
-      currentSegment.push({ ...point, x: xFor(point.index), y: yFor(point.value) });
-    } else if (currentSegment.length) {
-      segments.push(currentSegment);
-      currentSegment = [];
-    }
-  }
-  if (currentSegment.length) segments.push(currentSegment);
-
-  const linePaths = segments.map((segment) => segment
-    .map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`)
-    .join(" "));
-  const baseline = padding.top + innerHeight;
-  const areaPaths = segments
-    .filter((segment) => segment.length > 1)
-    .map((segment) => `M ${segment[0].x.toFixed(1)} ${baseline.toFixed(1)} L ${segment.map((point) => `${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" L ")} L ${segment.at(-1).x.toFixed(1)} ${baseline.toFixed(1)} Z`);
-
-  const graphId = `kpiGraph${String(kpi.number).replace(/[^a-z0-9]/gi, "")}`;
-  const districtOnly = finitePoints.filter((point) => point.code !== "NEGERI");
-  const comparisonSet = districtOnly.length ? districtOnly : finitePoints;
-  const highest = comparisonSet.reduce((best, point) => point.value > best.value ? point : best, comparisonSet[0]);
-  const lowest = comparisonSet.reduce((best, point) => point.value < best.value ? point : best, comparisonSet[0]);
-  const average = comparisonSet.reduce((sum, point) => sum + point.value, 0) / comparisonSet.length;
-  const selectedPoint = finitePoints.find((point) => point.code === selectedCode);
-  const highlightedCodes = new Set([highest.code, lowest.code, selectedCode]);
-  const gridValues = [maxValue, (maxValue + minValue) / 2, minValue];
-  const targetY = Number.isFinite(benchmark) ? yFor(benchmark) : null;
-
-  const gridMarkup = gridValues.map((value) => {
-    const y = yFor(value);
-    return `
-      <line class="chart-grid-line" x1="${padding.left}" y1="${y.toFixed(1)}" x2="${width - padding.right}" y2="${y.toFixed(1)}"></line>
-      <text class="chart-axis-label" x="${padding.left - 9}" y="${(y + 4).toFixed(1)}" text-anchor="end">${escapeHtml(formatCompactMetric(value, kpi.target.unit))}</text>`;
-  }).join("");
-
-  const labelsMarkup = points.map((point) => `
-    <text class="chart-district-label" x="${xFor(point.index).toFixed(1)}" y="${height - 17}" text-anchor="middle">${escapeHtml(point.code === "NEGERI" ? "NGR" : point.code)}</text>`).join("");
-
-  const pointsMarkup = finitePoints.map((point) => {
-    const x = xFor(point.index);
-    const y = yFor(point.value);
-    const statusColor = STATUS_CONFIG[point.status]?.color || STATUS_CONFIG["no-data"].color;
-    const isSelected = point.code === selectedCode;
-    const valueLabel = highlightedCodes.has(point.code)
-      ? `<text class="chart-value-label" x="${x.toFixed(1)}" y="${Math.max(15, y - 12).toFixed(1)}" text-anchor="middle">${escapeHtml(formatCompactMetric(point.value, kpi.target.unit))}</text>`
-      : "";
-    return `
-      ${isSelected ? `<circle class="chart-point-halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9"></circle>` : ""}
-      <circle class="chart-point" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isSelected ? 7 : 5.5}" fill="${statusColor}">
-        <title>${escapeHtml(locationName(point.code))}: ${escapeHtml(formatMetric(point.value, kpi.target.unit))} · ${escapeHtml(STATUS_CONFIG[point.status]?.label || "Tiada data")}</title>
-      </circle>
-      ${valueLabel}`;
-  }).join("");
-
-  const targetMarkup = Number.isFinite(targetY)
-    ? `<line class="chart-target-line" x1="${padding.left}" y1="${targetY.toFixed(1)}" x2="${width - padding.right}" y2="${targetY.toFixed(1)}"></line>
-       <text class="chart-target-label" x="${width - padding.right}" y="${Math.max(14, targetY - 7).toFixed(1)}" text-anchor="end">Sasaran ${escapeHtml(formatCompactMetric(benchmark, kpi.target.unit))}</text>`
-    : "";
-
-  return `
-    <div class="district-infographic">
-      <div class="district-graph-shell">
-        <div class="district-graph-head">
-          <div class="graph-title">
-            <span>Perbandingan daerah</span>
-            <strong>${comparisonSet.length} daerah${codes.includes("NEGERI") ? " + negeri" : ""}</strong>
-          </div>
-          <div class="graph-legend">
-            <span><i class="legend-line"></i>Nilai KPI</span>
-            ${Number.isFinite(benchmark) ? `<span><i class="legend-target"></i>Sasaran</span>` : ""}
-          </div>
-        </div>
-        <svg class="district-line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Graf garis perbandingan nilai KPI ${escapeHtml(kpi.number)} antara semua daerah">
-          <defs>
-            <linearGradient id="${graphId}Line" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#7bb6ff"></stop>
-              <stop offset="52%" stop-color="#9a91ec"></stop>
-              <stop offset="100%" stop-color="#57c8ae"></stop>
-            </linearGradient>
-            <linearGradient id="${graphId}Area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#7bb6ff" stop-opacity="0.48"></stop>
-              <stop offset="100%" stop-color="#7bb6ff" stop-opacity="0"></stop>
-            </linearGradient>
-          </defs>
-          ${gridMarkup}
-          ${targetMarkup}
-          ${areaPaths.map((path) => `<path class="chart-area" d="${path}" fill="url(#${graphId}Area)"></path>`).join("")}
-          ${linePaths.map((path) => `<path class="chart-line" d="${path}" stroke="url(#${graphId}Line)"></path>`).join("")}
-          ${pointsMarkup}
-          ${labelsMarkup}
-        </svg>
-        <div class="infographic-stats">
-          <div class="infographic-stat"><span>Purata daerah</span><strong>${escapeHtml(formatMetric(average, kpi.target.unit))}</strong></div>
-          <div class="infographic-stat"><span>Tertinggi · ${escapeHtml(highest.code)}</span><strong>${escapeHtml(formatMetric(highest.value, kpi.target.unit))}</strong></div>
-          <div class="infographic-stat"><span>Terendah · ${escapeHtml(lowest.code)}</span><strong>${escapeHtml(formatMetric(lowest.value, kpi.target.unit))}</strong></div>
-          <div class="infographic-stat"><span>${selectedPoint ? `Aktif · ${escapeHtml(selectedPoint.code === "NEGERI" ? "NGR" : selectedPoint.code)}` : "Paparan aktif"}</span><strong>${selectedPoint ? escapeHtml(formatMetric(selectedPoint.value, kpi.target.unit)) : "—"}</strong></div>
-        </div>
-        <p class="graph-caption">Garis menyambungkan kategori daerah untuk memudahkan perbandingan visual; ia bukan siri trend mengikut masa.</p>
-      </div>
-    </div>`;
-}
-
-function formatCompactMetric(value, unit) {
-  if (!Number.isFinite(value)) return "—";
-  const formatted = new Intl.NumberFormat("ms-MY", {
-    notation: Math.abs(value) >= 1000 ? "compact" : "standard",
-    maximumFractionDigits: Math.abs(value) >= 100 ? 0 : 1
-  }).format(value);
-  return unit === "%" ? `${formatted}%` : formatted;
 }
 
 function calculateProgress(current, target) {
